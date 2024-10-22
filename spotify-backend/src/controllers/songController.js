@@ -40,13 +40,35 @@ const addSong = async (req, res) => {
     const song = SongModel(songData);
     await song.save();
 
-    return res.status(200).json({ success: true, message: "Song Added" ,data:song});
+    return res
+      .status(200)
+      .json({ success: true, message: "Song Added", data: song });
   } catch (error) {
     console.log(error);
     return res.status(501).json({ success: false, error });
   }
 };
 
-const listSong = async (req, res) => {};
+const listSong = async (req, res) => {
+  try {
+    const allSongs = await SongModel.find();
+    return res.status(200).json({ success: true, songs: allSongs });
+  } catch (error) {
+    console.log(error);
+    res.status(501).json({ success: false, error });
+  }
+};
 
-export { addSong, listSong };
+const removeSong = async (req, res) => {
+  try {
+    const deleteSong = await SongModel.findByIdAndDelete(req.body.id);
+    return res
+      .status(200)
+      .json({ sucess: true, message: "song removed", deleteSong });
+  } catch (error) {
+    console.log(error);
+    res.status(501).json({ success: false, error });
+  }
+};
+
+export { addSong, listSong, removeSong };
