@@ -10,6 +10,6 @@ songRouter.post("/add",upload.fields([
     {name:"audio",maxCount:1}
 ]), addSong);
 songRouter.get("/list", listSong);
-songRouter.delete("/remove",removeSong)
+songRouter.post("/remove",removeSong)
 
 export default songRouter;
