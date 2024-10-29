@@ -9,7 +9,7 @@ import ListAlbums from "./pages/ListAlbums";
 import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";
 
-export const url = "http://localhost:7000"
+
 
 const App = () => {
   return (

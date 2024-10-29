@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { assets } from "../assets/assets";
 import axios from "axios";
-import { url } from "../App";
+import { url } from "../../hidden";
 import { toast } from "react-toastify";
 
 const AddAlbum = () => {

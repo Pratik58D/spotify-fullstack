@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { assets } from "../assets/assets";
 import axios from "axios";
-import { url } from "../App";
+import { url } from "../../hidden";
 import { toast } from "react-toastify";
 
-
 const AddSong = () => {
-
   const [image, setImage] = useState(false);
   const [song, setSong] = useState(false);
   const [name, setName] = useState("");
@@ -38,13 +36,30 @@ const AddSong = () => {
         setSong(false);
       } else {
         toast.error("something went wrong");
-        console.log(response.data.message)
+        console.log(response.data.message);
       }
     } catch (err) {
       toast.error("Error occured");
     }
     setLoading(false);
   };
+
+  const loadAlbumData = async () => {
+    try {
+      const response = await axios.get(`${url}/api/album/list`);
+      if (response.data.success) {
+        setAlbumData(response.data.albums);
+      } else {
+        toast.error("unable to load album data");
+      }
+    } catch (error) {
+      toast.error("Error occured");
+    }
+  };
+
+  useEffect(() => {
+    loadAlbumData();
+  }, []);
 
   return loading ? (
     <div className="grid place-items-center min-h-[80vh]">
@@ -119,6 +134,13 @@ const AddSong = () => {
           className="bg-transparent outline-green-600 border-2 border-gray-400 p-2.5 w-[150px]"
         >
           <option value="none">None</option>
+          {albumData.map((item, index) => {
+            return (
+              <option key={index} value={item.name}>
+                {item.name}
+              </option>
+            );
+          })}
         </select>
       </div>
 

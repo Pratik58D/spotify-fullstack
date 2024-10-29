@@ -43,7 +43,7 @@ const removeAlbum = async (req, res) => {
     const deleteAlbum = await albumModel.findByIdAndDelete(req.body.id);
     return res
       .status(200)
-      .json({ sucess: true, message: "album removed", deleteAlbum });
+      .json({ success: true, message: "album removed", deleteAlbum });
   } catch (error) {
     console.log(error);
     return res.status(501).json({ success: false, error });
